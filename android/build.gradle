@@ -46,4 +46,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"
     implementation "com.android.support:support-v4:${safeExtGet('supportLibVersion', '28.0.0')}"
     implementation "com.android.support:support-media-compat:${safeExtGet('supportLibVersion', '28.0.0')}"
+    compile project(path: ':react-native-android10-tools')
 }

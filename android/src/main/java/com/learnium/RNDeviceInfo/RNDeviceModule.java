@@ -55,6 +55,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nullable;
 
+import tool.StorageDirUtil;
+
 public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   ReactApplicationContext reactContext;
@@ -219,7 +221,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     String ipAddress = Formatter.formatIpAddress(getWifiInfo().getIpAddress());
     p.resolve(ipAddress);
   }
- 
+
   @ReactMethod
   public void getCameraPresence(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -291,7 +293,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public BigInteger getFreeDiskStorage() {
     try {
-      StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
+      StatFs external = new StatFs(StorageDirUtil.getExternalStorageDirectory(reactContext).getAbsolutePath());
       long availableBlocks;
       long blockSize;
 
@@ -376,7 +378,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSystemAvailableFeatures(Promise p) {
     final FeatureInfo[] featureList = this.reactContext.getApplicationContext().getPackageManager().getSystemAvailableFeatures();
-    
+
     WritableArray promiseArray = Arguments.createArray();
     for (FeatureInfo f : featureList) {
       if (f.name != null) {
